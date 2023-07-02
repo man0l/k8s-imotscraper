@@ -95,7 +95,7 @@ resource "aws_key_pair" "deployer" {
 terraform {
   backend "s3" {
     bucket = "eks-terraform-imot-scraper-state"
-    key    = "${var.environment}/terraform.tfstate"
+    key    = "dev/terraform.tfstate"
     region = "eu-central-1"
     encrypt = true
   }
