@@ -86,3 +86,8 @@ module "eks" {
     }
   ]
 }
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "scraper-key-pair"
+  public_key = lookup({public_key: var.public_key}, "public_key", file(var.public_key_path))
+}

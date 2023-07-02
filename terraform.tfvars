@@ -34,3 +34,5 @@ min_capacity     = 1
 capacity_type    = "SPOT"
 
 environment   = "dev"
+public_key_path    = "~/.ssh/id_rsa.pub"
+public_key         = ""
