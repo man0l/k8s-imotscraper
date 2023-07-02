@@ -19,6 +19,7 @@ The infrastructure is deployed in the following order:
 2. AWS CLI
 3. AWS IAM Authenticator
 4. kubectl
+5. public ssh key located in ~/.ssh/id_rsa.pub
 
 ## Deployment
 1. Clone the repository
