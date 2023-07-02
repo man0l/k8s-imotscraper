@@ -91,3 +91,12 @@ resource "aws_key_pair" "deployer" {
   key_name   = "scraper-key-pair"
   public_key = fileexists(var.public_key_path) ? file(var.public_key_path) : var.public_key
 }
+
+terraform {
+  backend "s3" {
+    bucket = "eks-terraform-imot-scraper-state"
+    key    = "dev/terraform.tfstate"
+    region = "eu-central-1"
+    encrypt = true
+  }
+}

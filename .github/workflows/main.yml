@@ -7,6 +7,7 @@ on:
   pull_request:
 env:
   TF_VAR_public_key: secrets.TF_VAR_PUBLIC_KEY
+  S3_STATE_KEY: dev/terraform.tfstate
 jobs:
   terraform:
     name: 'Terraform'
@@ -32,7 +33,7 @@ jobs:
           terraform_version: 1.0.5
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -backend-config="key=${{env.S3_STATE_KEY}}"
 
       - name: Terraform Plan
         run: terraform plan
