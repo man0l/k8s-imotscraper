@@ -139,3 +139,15 @@ variable "environment" {
   description = "Environment tag to apply to resources"
   type        = string
 }
+
+variable "public_key_path" {
+  description = "Path to the public key for the EC2 key pair"
+  type        = string
+  default     = "~/.ssh/id_rsa.pub"
+}
+
+variable "public_key" {
+  description = "Public key for the EC2 key pair"
+  type        = string
+  default     = ""
+}

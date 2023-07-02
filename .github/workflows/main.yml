@@ -5,13 +5,14 @@ on:
     branches:
       - master
   pull_request:
-
+env:
+  TF_VAR_public_key: secrets.TF_VAR_PUBLIC_KEY
 jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
 
-    defaults:
+    defaults:        
       run:
         working-directory: ./
 
