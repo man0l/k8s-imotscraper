@@ -33,10 +33,10 @@ jobs:
           terraform_version: 1.0.5
 
       - name: Terraform Init
-        run: terraform init --backend-configuration="key=${{vars.S3_STATE_KEY}}}}"
+        run: terraform init --backend-configuration="key=${{env.S3_STATE_KEY}}}}"
 
       - name: Terraform Plan
-        run: terraform plan --backend-configuration="key=${{ vars.S3_STATE_KEY }}"
+        run: terraform plan --backend-configuration="key=${{ env.S3_STATE_KEY }}"
 
     #  - name: Terraform Apply
     #    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
