@@ -63,6 +63,16 @@ variable "to_port" {
   type        = number
 }
 
+variable "from_port_https" {
+  description = "Start port for the ingress rule"
+  type        = number
+}
+
+variable "to_port_https" {
+  description = "End port for the ingress rule"
+  type        = number
+}
+
 variable "protocol" {
   description = "Protocol for the ingress rule"
   type        = string

@@ -17,6 +17,8 @@ from_port = 22
 to_port = 22
 protocol = "tcp"
 cidr_blocks = ["0.0.0.0/0"]
+from_port_https = 443
+to_port_https = 443
 
 lt_name = "scraper-eks-lt"
 image_id = "ami-0c94855f1c0118b6"
