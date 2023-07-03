@@ -35,13 +35,6 @@ module "iam_policy" {
   policy_name = var.policy_name
 }
 
-module "iam_role_policy_attachment" {
-  source = "./modules/iam_role_policy_attachment"
-
-  role_name = module.iam_role.role_name
-  policy_arn = module.iam_policy.policy_arn
-}
-
 module "iam_instance_profile" {
   source = "./modules/iam_instance_profile"
 
