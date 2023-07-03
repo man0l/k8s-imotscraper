@@ -50,6 +50,8 @@ module "security_group" {
   vpc_id = module.vpc.vpc_id
   from_port = var.from_port
   to_port = var.to_port
+  from_port_https = var.from_port_https
+  to_port_https = var.to_port_https
   protocol = var.protocol
   cidr_blocks = var.cidr_blocks
 }

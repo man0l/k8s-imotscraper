@@ -10,6 +10,13 @@ resource "aws_security_group" "sg" {
     cidr_blocks = var.cidr_blocks
   }
 
+  ingress {
+    from_port   = var.from_port_https
+    to_port     = var.to_port_https
+    protocol    = var.protocol
+    cidr_blocks = var.cidr_blocks
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
