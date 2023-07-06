@@ -100,24 +100,24 @@ terraform {
 ################ JUMP-BOX ###############################
 #########################################################
 
-############## Keypair for jump-box #######################
+# ############## Keypair for jump-box #######################
 
-resource "aws_key_pair" "jump-box" {
-  key_name   = "jump-box-key"
-  public_key = tls_private_key.rsa.public_key_openssh
-}
+# resource "aws_key_pair" "jump-box" {
+#   key_name   = "jump-box-key"
+#   public_key = tls_private_key.rsa.public_key_openssh
+# }
 
-resource "tls_private_key" "rsa" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
+# resource "tls_private_key" "rsa" {
+#   algorithm = "RSA"
+#   rsa_bits  = 4096
+# }
 
-#### local_file resource store private key in the root folder ########
+# #### local_file resource store private key in the root folder ########
 
-resource "local_file" "key" {
-  content  = tls_private_key.rsa.private_key_pem
-  filename = "jumpbox-key"
-}
+# resource "local_file" "key" {
+#   content  = tls_private_key.rsa.private_key_pem
+#   filename = "jumpbox-key"
+# }
 
 ################# EC2 instance for jump-box ##############
 
@@ -127,7 +127,7 @@ module "ec2_instance" {
   name = var.ec2_instance_name
 
   instance_type          = var.ec2_instance_type
-  key_name               = aws_key_pair.jump-box.key_name
+  key_name               = "jump-box"
   monitoring             = true
   vpc_security_group_ids = [module.security_group_ec2.security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
