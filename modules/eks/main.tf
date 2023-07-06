@@ -12,7 +12,7 @@ module "eks" {
     resources        = ["secrets"]
     provider_key_arn = module.kms.key_arn
   }
-  
+
   eks_managed_node_groups = {
     node_group_1 = {
       desired_capacity = var.desired_capacity
@@ -51,8 +51,8 @@ module "kms" {
   description           = "${var.cluster_name} cluster encryption key"
   enable_default_policy = true
   key_owners            = [data.aws_caller_identity.current.arn]
-  key_administrators = ["arn:aws:iam::408413497288:user/siva"]
-  key_users          = ["arn:aws:iam::408413497288:user/siva"]
+  key_administrators = ["arn:aws:iam::362138392771:user/github-workflow-actions-ci-cd", "arn:aws:iam::362138392771:user/sivakumar"]
+  key_users          = ["arn:aws:iam::362138392771:user/github-workflow-actions-ci-cd", "arn:aws:iam::362138392771:user/sivakumar"]
 
   tags = {
     Environment = "${var.environment}"
