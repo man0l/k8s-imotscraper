@@ -7,6 +7,12 @@ module "eks" {
   subnet_ids      = var.subnets
   vpc_id = var.vpc_id
 
+  create_kms_key = false
+  cluster_encryption_config = {
+    resources        = ["secrets"]
+    provider_key_arn = module.kms.key_arn
+  }
+  
   eks_managed_node_groups = {
     node_group_1 = {
       desired_capacity = var.desired_capacity
@@ -35,3 +41,22 @@ module "eks" {
 
   #manage_aws_auth = true
 }
+
+#################### KMS Key ########################
+
+module "kms" {
+  source  = "terraform-aws-modules/kms/aws"
+
+  aliases               = ["eks/${var.cluster_name}"]
+  description           = "${var.cluster_name} cluster encryption key"
+  enable_default_policy = true
+  key_owners            = [data.aws_caller_identity.current.arn]
+  key_administrators = ["arn:aws:iam::408413497288:user/siva"]
+  key_users          = ["arn:aws:iam::408413497288:user/siva"]
+
+  tags = {
+    Environment = "${var.environment}"
+  }
+}
+
+data "aws_caller_identity" "current" {}
