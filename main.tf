@@ -122,7 +122,7 @@ resource "local_file" "key" {
 ################# EC2 instance for jump-box ##############
 
 module "ec2_instance" {
-  source  = "./modules/ec2-instance/"
+  source  = "./modules/ec2_instance"
 
   name = var.ec2_instance_name
 
