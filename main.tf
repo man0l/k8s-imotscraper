@@ -95,3 +95,91 @@ terraform {
     encrypt = true
   }
 }
+
+#########################################################
+################ JUMP-BOX ###############################
+#########################################################
+
+############## Keypair for jump-box #######################
+
+resource "aws_key_pair" "jump-box" {
+  key_name   = "jump-box-key"
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+#### local_file resource store private key in the root folder ########
+
+resource "local_file" "key" {
+  content  = tls_private_key.rsa.private_key_pem
+  filename = "jumpbox-key"
+}
+
+################# EC2 instance for jump-box ##############
+
+module "ec2_instance" {
+  source  = "./modules/ec2-instance/"
+
+  name = var.ec2_instance_name
+
+  instance_type          = var.ec2_instance_type
+  key_name               = aws_key_pair.jump-box.key_name
+  monitoring             = true
+  vpc_security_group_ids = [module.security_group_ec2.security_group_id]
+  subnet_id              = module.vpc.public_subnets[0]
+  disable_api_termination = true
+
+  depends_on = [
+    module.vpc
+  ]
+  tags = {
+    Environment = var.environment
+  }
+}
+
+############# security group for jump-box ###################
+module "security_group_ec2" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "5.1.0"
+
+  name        = "${var.name}-jump-box-sg"
+  description = "jump-box security group"
+  vpc_id      = module.vpc.vpc_id
+
+  # ingress
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      description = "Allow ssh access witin VPC"
+      cidr_blocks = var.cidr
+    },
+  ]
+  egress_cidr_blocks = ["0.0.0.0/0"]
+  depends_on = [
+    module.vpc
+  ]
+
+  tags = {
+    Environment = var.environment
+  }
+
+
+}
+
+
+################### SG rule for jump-box ###############################
+
+resource "aws_security_group_rule" "jump-sg" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = [var.cidr]
+  security_group_id = module.eks.cluster_security_group_id
+}

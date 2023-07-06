@@ -12,3 +12,8 @@ output "cluster_iam_role_name" {
   description = "IAM role name associated with EKS cluster."
   value       = module.eks.cluster_iam_role_name
 }
+
+output "vpc_subnets" {
+  description = "VPC public subnet IDs"
+  value       = module.vpc.public_subnets
+}

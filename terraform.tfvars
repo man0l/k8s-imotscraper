@@ -38,3 +38,7 @@ capacity_type    = "SPOT"
 environment   = "dev"
 public_key_path    = "~/.ssh/id_rsa.pub"
 public_key         = ""
+
+ec2_instance_name = "jump-box"
+ec2_instance_type = "t2.micro"
+
