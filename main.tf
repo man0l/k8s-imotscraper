@@ -70,7 +70,6 @@ module "eks" {
 
   instance_types = var.instance_types
   capacity_type = var.capacity_type
-  key_name      = var.key_name
   environment   = var.environment
 
   map_roles = [
@@ -80,11 +79,6 @@ module "eks" {
       groups   = ["system:masters"]
     }
   ]
-}
-
-resource "aws_key_pair" "deployer" {
-  key_name   = "scraper-key-pair"
-  public_key = fileexists(var.public_key_path) ? file(var.public_key_path) : var.public_key
 }
 
 terraform {
@@ -99,27 +93,6 @@ terraform {
 #########################################################
 ################ JUMP-BOX ###############################
 #########################################################
-
-# ############## Keypair for jump-box #######################
-
-# resource "aws_key_pair" "jump-box" {
-#   key_name   = "jump-box-key"
-#   public_key = tls_private_key.rsa.public_key_openssh
-# }
-
-# resource "tls_private_key" "rsa" {
-#   algorithm = "RSA"
-#   rsa_bits  = 4096
-# }
-
-# #### local_file resource store private key in the root folder ########
-
-# resource "local_file" "key" {
-#   content  = tls_private_key.rsa.private_key_pem
-#   filename = "jumpbox-key"
-# }
-
-################# EC2 instance for jump-box ##############
 
 module "ec2_instance" {
   source  = "./modules/ec2_instance"
