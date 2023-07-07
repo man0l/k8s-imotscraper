@@ -22,7 +22,7 @@ module "eks" {
       instance_types = var.instance_types
       capacity_type = "${var.capacity_type}"  # Add this line to use Spot instances
 
-      key_name      = var.key_name
+     
       additional_tags = {
         Environment = var.environment
         Name        = "${var.cluster_name}-worker-node"
