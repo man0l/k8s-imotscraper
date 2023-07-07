@@ -43,11 +43,6 @@ variable "capacity_type" {
   type        = string
 }
 
-variable "key_name" {
-  description = "Key pair name to use for the EKS node group"
-  type        = string
-}
-
 variable "environment" {
   description = "Environment tag and label to apply to resources"
   type        = string

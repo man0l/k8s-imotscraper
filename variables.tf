@@ -103,11 +103,6 @@ variable "capacity_type" {
   type        = string
 }
 
-variable "key_name" {
-  description = "Key pair name for the launch template"
-  type        = string
-}
-
 variable "user_data" {
   description = "User data script for the launch template"
   type        = string
@@ -150,17 +145,7 @@ variable "environment" {
   type        = string
 }
 
-variable "public_key_path" {
-  description = "Path to the public key for the EC2 key pair"
-  type        = string
-  default     = "~/.ssh/id_rsa.pub"
-}
 
-variable "public_key" {
-  description = "Public key for the EC2 key pair"
-  type        = string
-  default     = ""
-}
 
 variable "ec2_instance_name" {
   description = "Name of the EC2 instance"
