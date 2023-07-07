@@ -132,6 +132,7 @@ module "ec2_instance" {
   vpc_security_group_ids = [module.security_group_ec2.security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
   disable_api_termination = true
+  associate_public_ip_address = true
 
   depends_on = [
     module.vpc
